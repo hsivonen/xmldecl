@@ -107,7 +107,13 @@ pub fn parse(bytes: &[u8]) -> Option<&'static encoding_rs::Encoding> {
                         return None;
                     }
                     if (c == b'"' && !is_single_quoted) || (c == b'\'' && is_single_quoted) {
-                        return encoding_rs::Encoding::for_label(&tail[label_start..pos]);
+                        let encoding = encoding_rs::Encoding::for_label(&tail[label_start..pos]);
+                        if encoding == Some(encoding_rs::UTF_16LE)
+                            || encoding == Some(encoding_rs::UTF_16BE)
+                        {
+                            return Some(encoding_rs::UTF_8);
+                        }
+                        return encoding;
                     }
                     pos += 1;
                 }
@@ -322,6 +328,27 @@ mod tests {
         assert_eq!(
             parse(b"<?xml version=\"1.0\" encodingencoding=\"windows-1251\"?>AAAA"),
             None
+        );
+    }
+    #[test]
+    fn utf16() {
+        assert_eq!(
+            parse(b"<?xml version=\"1.0\" encoding=\"UTF-16\"?>AAAA"),
+            Some(encoding_rs::UTF_8)
+        );
+    }
+    #[test]
+    fn utf16le() {
+        assert_eq!(
+            parse(b"<?xml version=\"1.0\" encoding=\"UTF-16LE\"?>AAAA"),
+            Some(encoding_rs::UTF_8)
+        );
+    }
+    #[test]
+    fn utf16be() {
+        assert_eq!(
+            parse(b"<?xml version=\"1.0\" encoding=\"UTF-16BE\"?>AAAA"),
+            Some(encoding_rs::UTF_8)
         );
     }
     #[test]

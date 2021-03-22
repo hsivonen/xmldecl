@@ -26,6 +26,10 @@ MSRV: 1.51.0
 
 ## Release Notes
 
+### 0.1.1
+
+* Map UTF-16LE and UTF-16BE to UTF-8 as in `meta`.
+
 ### 0.1.0
 
 * The initial release.
