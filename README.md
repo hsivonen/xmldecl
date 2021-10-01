@@ -1,6 +1,5 @@
 # xmldecl
 
-[![Build Status](https://travis-ci.org/hsivonen/xmldecl.svg?branch=main)](https://travis-ci.org/hsivonen/xmldecl)
 [![crates.io](https://img.shields.io/crates/v/xmldecl.svg)](https://crates.io/crates/xmldecl)
 [![docs.rs](https://docs.rs/xmldecl/badge.svg)](https://docs.rs/xmldecl/)
 [![Apache 2 OR MIT dual-licensed](https://img.shields.io/badge/license-Apache%202%20%2F%20MIT-blue.svg)](https://github.com/hsivonen/xmldecl/blob/main/COPYRIGHT)
@@ -25,6 +24,10 @@ online.
 MSRV: 1.51.0
 
 ## Release Notes
+
+### 0.2.0
+
+* Remove the 1024-byte limit.
 
 ### 0.1.1
 
